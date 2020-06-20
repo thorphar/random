@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="node_modules/normalize.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PV-Flows</title>
+</head>
+<body>
+    <center><h1 class="header">Process Vision</h1></center>
+    <div class="input_table">
+    <form name="myform" action="#" onsubmit="submitForm()" method="post" >
+        <label for="from">Your Email address: </label>
+        <input type = "text" id="from" name="from"><br/><br/>
+        <label for="to">Approvers Email address: </label>
+        <input type = "text" id="to" name="to"><br/><br/>
+        <label for="project">Project Name: </label> 
+        <select id="project" name="project">
+            <option value="General">General</option>
+            <option value="Piglet">Piglet</option>
+            <option value="LineVu">LineVu</option>
+          </select> 
+          <br />
+          <br />      
+          <button id="submit-btn" type="submit" value="Submit">Submit</button> 
+    </form>
+    </div>
+
+    <script type="text/javascript">
+    function submitForm(){
+        var form_to = document.forms["myform"]["to"].value;
+        var form_from = document.forms["myform"]["from"].value;
+        var form_project = document.forms["myform"]["project"].value;
+        var xhr = new XMLHttpRequest();
+        var url = "https://prod-27.uksouth.logic.azure.com:443/workflows/03c2ec8f72d74469b4ea83975d52ddc6/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=_FdfXEkUqb9pGiKWZyDX6ANVgdMgE4845STDTwgtivo";
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("all good");
+            }
+        };
+        var data = JSON.stringify({"to": form_to, "from": form_from,"project" : form_project});
+        xhr.send(data);
+        alert("PV-Flow: Request Sent");
+    }
+    </script>
+</body>
+</html>

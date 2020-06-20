@@ -1,0 +1,18 @@
+{
+  "name": "datadisplay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node .",
+    "express": "node webpage.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.17.1",
+    "jade": "^1.11.0",
+    "nodemon": "^2.0.4",
+    "pg": "^8.2.1"
+  }
+}
